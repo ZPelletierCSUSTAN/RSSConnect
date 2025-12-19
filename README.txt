@@ -1,44 +1,98 @@
-RSSConnect is a app made by Zachory Pelletier. Created using Gemini Pro 3 Pro Preview AI model using Google AI Studio.
+RSSConnect is an app made by Zachory Pelletier. Created using Gemini 3 Pro Preview AI model using Google AI Studio.
 
-File Mapping for RSSConnect templates folder:
+RSSConnect is a sophisticated, dark-themed Flask web application developed by Zachory Pelletier that features a privacy-focused multi-user account system, advanced RSS feed curation, and an integrated web scraper for finding RSS feeds.
 
-    page1.html = Accounts (Login)
+# Design Theme:
+Use Bootstrap 5 'Simplex' theme but enforce a strict Matte Dark (#121212) and Orange (#E85D04) color scheme via CSS overrides. Default Dark mode enabled with a toggle for Light mode.
 
-    page2.html = Home (Categories)
+# File Mapping for RSSConnect
 
-    page3.html = Articles (News Feed)
+RSSConnect/
+├── app.py
+├── requirements.txt
+├── README.md
+├── data/
+│   └── user_data.json  (Auto-generated)
+└── templates/
+    ├── base.html       (Main Layout)
+    ├── index.html      (Accounts / Login)
+    ├── page1.html      (Home / Categories)
+    ├── page2.html      (Articles / News Feed)
+    ├── page3.html      (Favorites)
+    ├── page4.html      (RSS Manager)
+    ├── page5.html      (RSS Finder)
+    ├── page6.html      (Help)
+    └── page7.html      (About)
 
-    page4.html = Favorites
+# Default RSS Stream
+The app comes pre-loaded with the following feeds for the "Default User":
 
-    page5.html = RSS Manager
+**World News**
+*   CNN (YouTube)
+*   BBC News (YouTube)
+*   NBC News (YouTube)
+*   ABC News (YouTube)
 
-    page6.html = RSS Finder
+**Tech**
+*   MKBHD (YouTube)
+*   Unbox Therapy (YouTube)
+*   Android Authority (YouTube)
+*   IGN Tech
 
-    page7.html = Help
+**Comics**
+*   DC (YouTube)
+*   IGN Comics
 
-    page8.html = About
+**TV & Movies**
+*   Netflix (YouTube)
+*   Marvel Entertainment (YouTube)
+*   Flicks And The City (YouTube)
+*   Rotten Tomatoes (YouTube)
+*   IGN Movies
+*   IGN TV
 
-AI prompt to generate this RSSConnect:
-    "Build a comprehensive Flask-based RSS Reader named RSSConnect.
+**Video Games**
+*   IGN Games
+*   GameSpot (YouTube)
+*   IGN Xbox / Nintendo / PC / PlayStation
 
-    Core Features:
+**Music**
+*   Pitchfork
+*   The Needle Drop (YouTube)
+*   Deep Cuts (YouTube)
+*   Rolling Stone
 
-        Multi-Account System: A 'Who is reading?' screen that handles multiple users without passwords.
+**Food**
+*   One Bite Pizza Reviews (YouTube)
+*   Joshua Weissman (YouTube)
 
-        Categorized Feeds: Users can manage and browse news by categories (World News, Tech, etc.) with the ability to add/delete custom categories.
+**Other**
+*   BBC Earth (YouTube)
+*   Business Insider (YouTube)
+*   Insider Tech (YouTube)
 
-        RSS Finder: A tool that scrapes a website URL using BeautifulSoup to find hidden RSS/Atom links.
+# AI Prompt:
 
-        Favorites System: Allow users to create folders and save specific articles into them for later reading.
+**Project:** Build a Flask (Python) web application called 'RSSConnect'.
 
-        Advanced Parsing: Use ThreadPoolExecutor for fast parallel feed fetching and BeautifulSoup to extract images from article HTML if the RSS tag is missing.
+**Design Theme:**
+Use Bootstrap 5 'Simplex' theme but enforce a strict Matte Dark (#121212) and Orange (#E85D04) color scheme via CSS overrides. Enable high-contrast text for readability.
 
-    UX & Design:
+**File Structure & Functionality:**
 
-        UI: Use Bootstrap 5 with the 'Simplex' theme, defaulting to a matte dark mode (#121212) with orange (#e85d04) accents.
+*   **app.py:** Main logic using Flask, `feedparser` for parsing RSS XML, `requests` + `beautifulsoup4` for scraping website headers to find feeds, and `concurrent.futures` for parallel feed fetching.
+*   **templates/base.html:** Base layout containing the Navbar with centered links, Orange branding, and Theme Toggle logic.
+*   **templates/index.html:** Accounts Page. Features a card-grid of users. Logic to create/delete users and auto-login as "Default User" on first run.
+*   **templates/page1.html:** Home Page. Displays grid of Categories (World News, Tech, etc.) with keyboard navigation support (Arrow keys + Enter).
+*   **templates/page2.html:** Articles Page. Fetches and parses RSS feeds for the selected category. Displays thumbnails (extracted via soup if missing) and summaries. Includes "Save to..." dropdown for Favorites.
+*   **templates/page3.html:** Favorites Page. Allows users to create custom folders (e.g., "Read Later") and manage saved articles.
+*   **templates/page4.html:** RSS Manager. Dual-column layout. Left: RSS Feed list (delete individual feeds). Right: Custom Category management (add/delete). Features a "Delete ALL Feeds" emergency button.
+*   **templates/page5.html:** RSS Finder. Input field to scrape any URL (e.g., wired.com) for hidden RSS meta tags. Results allow one-click addition to specific categories.
+*   **templates/page6.html:** Help page with Accordion-style guides.
+*   **templates/page7.html:** About page crediting Zachory Pelletier.
 
-        Navigation: Center all navigation links. Implement full Arrow-Key and Enter keyboard navigation for browsing categories and article lists.
-
-        Previews: Articles must show a title, source, timestamp, and a short text summary preview.
-
-    Structure: Use a numbered template system (page1.html through page8.html) for all views."
+**Specific Logic Implemented:**
+*   **Robust Data:** `user_data.json` handles corruption automatically.
+*   **Image Extraction:** If an RSS feed lacks an image, the app scrapes the article summary HTML to find a fallback image.
+*   **Keyboard Nav:** JavaScript listeners for Arrow Up/Down/Left/Right to navigate grids without a mouse.
+*   **Feed Limits:** Max 50 categories and 30 feeds per category to ensure performance.
