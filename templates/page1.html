@@ -1,13 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="text-center py-5"><h1 class="display-4 fw-bold text-danger">Who is reading?</h1><p class="text-muted fs-4">Manage your accounts below.</p></div>
-<div class="d-flex justify-content-center flex-wrap gap-4 mb-5">
-    {% for user in users %}
-    <div class="card shadow-lg text-center border-0 card-hover" style="width: 12rem;">
-        <form method="POST" action="{{ url_for('accounts') }}" class="h-100"><input type="hidden" name="action" value="login"><input type="hidden" name="username" value="{{ user }}"><button class="btn w-100 h-100 p-4 border-0 bg-transparent"><i class="fa-solid fa-user-circle fa-5x text-secondary mb-3"></i><h4 class="card-title text-danger">{{ user }}</h4></button></form>
-        <div class="card-footer bg-transparent border-0 pb-3"><form method="POST" action="{{ url_for('accounts') }}" onsubmit="return confirm('Delete {{ user }}?');"><input type="hidden" name="action" value="delete"><input type="hidden" name="username" value="{{ user }}"><button class="btn btn-outline-danger btn-sm rounded-pill px-3">Delete</button></form></div>
+<div class="text-center py-5"><h1 class="display-3 fw-bold text-danger mb-3">RSSConnect</h1><p class="lead text-muted fs-3">Bringing You Your Latest News and Information.</p></div>
+<div class="row g-4" id="category-grid">
+    {% for cat in categories %}
+    <div class="col-md-6 col-lg-3">
+        <a href="{{ url_for('show_category', category_name=cat) }}" class="text-decoration-none nav-item-card">
+            <div class="card h-100 card-hover text-center border-0 shadow-lg">
+                <div class="card-body d-flex flex-col flex-column justify-content-center py-5">
+                    <i class="fa-solid fa-4x mb-3 text-secondary {% if 'World' in cat %}fa-globe{% elif 'TV' in cat %}fa-tv{% elif 'Comics' in cat %}fa-book-open{% elif 'Music' in cat %}fa-music{% elif 'Game' in cat %}fa-gamepad{% elif 'Tech' in cat %}fa-microchip{% elif 'Food' in cat %}fa-utensils{% else %}fa-star{% endif %}"></i>
+                    <h3 class="h4 card-title fw-bold text-danger">{{ cat }}</h3>
+                </div>
+            </div>
+        </a>
     </div>
     {% endfor %}
 </div>
-<div class="row justify-content-center"><div class="col-md-6 col-lg-4"><div class="card shadow-lg"><div class="card-body"><h5 class="text-center mb-3">Add New Account</h5><form method="POST" class="input-group"><input type="hidden" name="action" value="create"><input type="text" name="username" class="form-control" placeholder="Account Name" required><button class="btn btn-primary">Create</button></form></div></div></div></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const links = Array.from(document.querySelectorAll('.nav-item-card'));
+        const cards = Array.from(document.querySelectorAll('.nav-item-card .card'));
+        let focusIndex = -1;
+        document.addEventListener('keydown', (e) => {
+            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(e.key)) { e.preventDefault(); } else { return; }
+            const cols = window.innerWidth >= 992 ? 4 : (window.innerWidth >= 768 ? 2 : 1);
+            if (e.key === 'Enter' && focusIndex !== -1) { links[focusIndex].click(); return; }
+            if (focusIndex === -1) { focusIndex = 0; } else { if (e.key === 'ArrowRight') focusIndex++; if (e.key === 'ArrowLeft') focusIndex--; if (e.key === 'ArrowDown') focusIndex += cols; if (e.key === 'ArrowUp') focusIndex -= cols; }
+            if (focusIndex < 0) focusIndex = links.length - 1; if (focusIndex >= links.length) focusIndex = 0;
+            cards.forEach(c => c.classList.remove('focus-ring'));
+            cards[focusIndex].classList.add('focus-ring');
+            cards[focusIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    });
+</script>
 {% endblock %}

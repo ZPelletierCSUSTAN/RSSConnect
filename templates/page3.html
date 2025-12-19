@@ -1,71 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary">
-    <div class="d-flex align-items-center gap-3">
-        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
-        <h2 class="m-0 fw-bold">{{ category }}</h2>
+<div class="d-flex justify-content-between align-items-center mb-5 border-bottom border-secondary pb-3"><h1 class="text-danger fw-bold"><i class="fa-solid fa-bookmark me-2"></i>Favorites</h1><form method="POST" class="d-flex gap-2"><input type="hidden" name="action" value="add_fav_cat"><input type="text" name="cat_name" class="form-control form-control-sm" placeholder="New Folder..." required><button class="btn btn-sm btn-success text-nowrap"><i class="fa-solid fa-plus"></i> Add Folder</button></form></div>
+{% for cat in fav_categories %}
+    <div class="mb-5"><div class="d-flex justify-content-between align-items-center mb-3"><h3 class="fw-bold text-white border-start border-4 border-danger ps-3">{{ cat }}</h3><form method="POST" onsubmit="return confirm('Delete folder {{ cat }}?');"><input type="hidden" name="action" value="del_fav_cat"><input type="hidden" name="cat_name" value="{{ cat }}"><button class="btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i> Delete Folder</button></form></div>
+        {% set items = favorites | selectattr("fav_category", "equalto", cat) | list %}
+        {% if items|length == 0 %}<p class="text-muted fst-italic">No articles saved here yet.</p>{% else %}
+            <div class="row g-4">{% for item in items %}<div class="col-md-6 col-lg-4"><div class="card h-100 border-0 shadow-sm"><div class="ratio ratio-16x9"><img src="{{ item.thumbnail }}" class="card-img-top object-fit-cover"></div><div class="card-body d-flex flex-column"><h6 class="card-title text-truncate-2">{{ item.title }}</h6><div class="mt-auto d-flex justify-content-between align-items-center pt-3"><a href="{{ item.link }}" target="_blank" class="btn btn-sm btn-primary">Read</a><form method="POST" onsubmit="return confirm('Remove?');"><input type="hidden" name="action" value="delete_article"><input type="hidden" name="article_link" value="{{ item.link }}"><button class="btn btn-sm btn-link text-danger p-0"><i class="fa-solid fa-trash"></i></button></form></div></div></div></div>{% endfor %}</div>
+        {% endif %}
     </div>
-    <span class="badge bg-secondary fs-6">{{ feed_count }} Sources</span>
-</div>
-{% if articles|length == 0 %}
-    <div class="text-center py-5 text-muted">
-        <i class="fa-regular fa-folder-open fa-3x mb-3"></i>
-        <h3>No articles found</h3>
-        <p class="fs-5">Go to <a href="{{ url_for('dashboard') }}" class="text-danger">RSS Manager</a> to add feeds.</p>
-    </div>
-{% else %}
-    <div class="row g-4" id="article-grid">
-        {% for article in articles %}
-        <div class="col-md-6 col-lg-4 article-col">
-            <div class="card h-100 shadow-sm border-0 article-card">
-                <div class="ratio ratio-16x9">
-                    <img src="{{ article.thumbnail }}" class="card-img-top object-fit-cover" alt="Thumbnail" onerror="this.src='https://picsum.photos/400/225'">
-                </div>
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-truncate-2 mb-2">{{ article.title }}</h5>
-                    <p class="card-text small text-muted text-truncate-3" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">{{ article.summary }}</p>
-                    <div class="mt-auto d-flex justify-content-between align-items-center pt-3">
-                        <small class="text-danger fw-bold">{{ article.source }}</small>
-                        <div class="btn-group">
-                            <a href="{{ article.link }}" target="_blank" class="btn btn-sm btn-primary read-btn">Read</a>
-                            <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown"></button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow">
-                                <li><h6 class="dropdown-header">Save to...</h6></li>
-                                {% for fav_cat in fav_categories %}
-                                <li><form action="{{ url_for('save_article') }}" method="POST"><input type="hidden" name="title" value="{{ article.title }}"><input type="hidden" name="link" value="{{ article.link }}"><input type="hidden" name="thumbnail" value="{{ article.thumbnail }}"><input type="hidden" name="source" value="{{ article.source }}"><input type="hidden" name="fav_category" value="{{ fav_cat }}"><button class="dropdown-item" type="submit">{{ fav_cat }}</button></form></li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer text-muted small border-top border-secondary">{{ article.published[:16] }}</div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const cards = Array.from(document.querySelectorAll('.article-card'));
-        const readBtns = Array.from(document.querySelectorAll('.read-btn'));
-        let focusIndex = -1;
-        document.addEventListener('keydown', (e) => {
-            if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(e.key)) { e.preventDefault(); } else { return; }
-            const cols = window.innerWidth >= 992 ? 3 : (window.innerWidth >= 768 ? 2 : 1);
-            if (e.key === 'Enter' && focusIndex !== -1) { readBtns[focusIndex].click(); return; }
-            if (focusIndex === -1) { focusIndex = 0; } 
-            else {
-                if (e.key === 'ArrowRight') focusIndex++;
-                if (e.key === 'ArrowLeft') focusIndex--;
-                if (e.key === 'ArrowDown') focusIndex += cols;
-                if (e.key === 'ArrowUp') focusIndex -= cols;
-            }
-            if (focusIndex < 0) focusIndex = cards.length - 1;
-            if (focusIndex >= cards.length) focusIndex = 0;
-            cards.forEach(c => c.classList.remove('focus-ring'));
-            cards[focusIndex].classList.add('focus-ring');
-            cards[focusIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-    });
-    </script>
-{% endif %}
+{% endfor %}
 {% endblock %}

@@ -33,7 +33,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                     {% if session.user %}
-                    <li class="nav-item"><a class="nav-link fs-5 px-3" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link fs-5 px-3" href="{{ url_for('home') }}">Home</a></li>
                     <li class="nav-item"><a class="nav-link fs-5 px-3" href="{{ url_for('favorites') }}">Favorites</a></li>
                     <li class="nav-item"><a class="nav-link fs-5 px-3" href="{{ url_for('dashboard') }}">RSS Manager</a></li>
                     <li class="nav-item"><a class="nav-link fs-5 px-3" href="{{ url_for('finder') }}">RSS Finder</a></li>
