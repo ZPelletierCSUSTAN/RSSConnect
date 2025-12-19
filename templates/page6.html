@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center position-relative mb-4">
+    <h1 class="text-danger fw-bold">RSS Finder</h1>
+    <button onclick="location.reload()" class="btn btn-outline-primary position-absolute top-50 end-0 translate-middle-y"><i class="fa-solid fa-rotate"></i> Refresh</button>
+</div>
+<div class="card shadow-lg mb-4"><div class="card-body"><form method="POST" class="input-group input-group-lg"><input type="text" name="website_url" value="{{ search_url }}" class="form-control" placeholder="Enter website URL (e.g. wired.com)" required><button class="btn btn-primary px-5">Scan</button></form></div></div>
+{% if error %}<div class="alert alert-danger text-center fs-5">{{ error }}</div>{% endif %}
+{% if found_feeds %}
+    <h4 class="mb-3 text-center">Results</h4>
+    <div class="list-group shadow-lg">
+        {% for feed in found_feeds %}
+        <div class="list-group-item p-4"><div class="row align-items-center"><div class="col-md-7"><h5 class="mb-1 text-danger">{{ feed.title }}</h5><small class="text-muted font-monospace">{{ feed.url }}</small></div><div class="col-md-5"><form method="POST" class="input-group"><input type="hidden" name="action" value="save_feed"><input type="hidden" name="feed_name" value="{{ feed.title }}"><input type="hidden" name="feed_url" value="{{ feed.url }}"><input type="hidden" name="website_url" value="{{ search_url }}"><label class="input-group-text bg-secondary text-white">Add to</label><select name="category" class="form-select">{% for cat in categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}</select><button class="btn btn-success">Save</button></form></div></div></div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,206 @@
+{
+    "Default User": {
+        "categories": [
+            "World News",
+            "TV & Movies",
+            "Comics",
+            "Music",
+            "Video Games",
+            "Tech",
+            "Food",
+            "Other"
+        ],
+        "feeds": [
+            {
+                "id": "wn1",
+                "name": "CNN",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCupvZG-5ko_eiXAupbDfxWw",
+                "category": "World News"
+            },
+            {
+                "id": "wn2",
+                "name": "BBC News",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC16niRr50-MSBwiO3YDb3RA",
+                "category": "World News"
+            },
+            {
+                "id": "wn3",
+                "name": "NBC News",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCeY0bbntWzzVIaj2z3QigXg",
+                "category": "World News"
+            },
+            {
+                "id": "wn4",
+                "name": "ABC News",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBi2mrWuNuyYy4gbM6fU18Q",
+                "category": "World News"
+            },
+            {
+                "id": "tc1",
+                "name": "MKBHD",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBJycsmduvYEL83R_U4JriQ",
+                "category": "Tech"
+            },
+            {
+                "id": "tc2",
+                "name": "Unbox Therapy",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsTcErHg8oDvUnTzoqsYeNw",
+                "category": "Tech"
+            },
+            {
+                "id": "tc3",
+                "name": "Android Authority",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCdOXRB936PKSwx0J7SgF6SQ",
+                "category": "Tech"
+            },
+            {
+                "id": "tc4",
+                "name": "IGN Tech",
+                "url": "https://www.ign.com/rss/v2/articles/feed?vertical=tech",
+                "category": "Tech"
+            },
+            {
+                "id": "cm1",
+                "name": "DC",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC4kjDjhexSVuC8JWk4ZanFw",
+                "category": "Comics"
+            },
+            {
+                "id": "cm2",
+                "name": "IGN Comics",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=comics",
+                "category": "Comics"
+            },
+            {
+                "id": "tv1",
+                "name": "Netflix",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCWOA1ZGywLbqmigxE4Qlvuw",
+                "category": "TV & Movies"
+            },
+            {
+                "id": "tv2",
+                "name": "Marvel",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCvC4D8onUfXzvjTOM-dBfEA",
+                "category": "TV & Movies"
+            },
+            {
+                "id": "tv3",
+                "name": "Flicks And The City",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCz1GPotHecuLngiLuY739QQ",
+                "category": "TV & Movies"
+            },
+            {
+                "id": "tv4",
+                "name": "Rotten Tomatoes",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCQJWtTnAHhEG5w4uN0udnUQ",
+                "category": "TV & Movies"
+            },
+            {
+                "id": "tv5",
+                "name": "IGN Movies",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=movies",
+                "category": "TV & Movies"
+            },
+            {
+                "id": "tv6",
+                "name": "IGN TV",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=tv",
+                "category": "TV & Movies"
+            },
+            {
+                "id": "vg1",
+                "name": "IGN Games",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCKy1dAqELo0zrOtPkf0eTMw",
+                "category": "Video Games"
+            },
+            {
+                "id": "vg2",
+                "name": "GameSpot",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbu2SsF-Or3Rsn3NxqODImw",
+                "category": "Video Games"
+            },
+            {
+                "id": "vg3",
+                "name": "IGN Xbox",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=xbox",
+                "category": "Video Games"
+            },
+            {
+                "id": "vg4",
+                "name": "IGN Nintendo",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=nintendo",
+                "category": "Video Games"
+            },
+            {
+                "id": "vg5",
+                "name": "IGN PC",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=pc",
+                "category": "Video Games"
+            },
+            {
+                "id": "vg6",
+                "name": "IGN PlayStation",
+                "url": "https://www.ign.com/rss/v2/articles/feed?channel=playstation",
+                "category": "Video Games"
+            },
+            {
+                "id": "mu1",
+                "name": "Pitchfork",
+                "url": "https://pitchfork.com/feed/rss",
+                "category": "Music"
+            },
+            {
+                "id": "mu2",
+                "name": "The Needle Drop",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCt7fwAhXDy3oNFTAzF2o8Pw",
+                "category": "Music"
+            },
+            {
+                "id": "mu3",
+                "name": "Deep Cuts",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCBv7HEHuVlNAELGi5XJd85Q",
+                "category": "Music"
+            },
+            {
+                "id": "mu4",
+                "name": "Rolling Stone",
+                "url": "https://www.rollingstone.com/feed/rss/",
+                "category": "Music"
+            },
+            {
+                "id": "fd1",
+                "name": "One Bite Pizza",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCRm922a9Bdd58Q1QJpwE9Xg",
+                "category": "Food"
+            },
+            {
+                "id": "fd2",
+                "name": "Joshua Weissman",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCXw1ddyrUmib3zmCmvSI1ow",
+                "category": "Food"
+            },
+            {
+                "id": "ot1",
+                "name": "BBC Earth",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCwmZiChSryoWQCZMIQezgTg",
+                "category": "Other"
+            },
+            {
+                "id": "ot2",
+                "name": "Business Insider",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCYmna5rFHIesFteksAvFOfg",
+                "category": "Other"
+            },
+            {
+                "id": "ot3",
+                "name": "Insider Tech",
+                "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCJXxuESjGIaaqb1-IRWFihw",
+                "category": "Other"
+            }
+        ],
+        "favorites": [],
+        "fav_categories": [
+            "Read Later"
+        ]
+    }
+}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center position-relative mb-5 border-bottom border-secondary pb-3">
+    <h1 class="m-0 text-danger fw-bold">RSS Manager</h1>
+    <form method="POST" onsubmit="return confirm('WARNING: This will delete ALL feeds. Continue?');" class="position-absolute end-0"><input type="hidden" name="action" value="delete_all_feeds"><button class="btn btn-danger btn-sm"><i class="fa-solid fa-trash me-2"></i>Delete ALL</button></form>
+</div>
+<div class="row g-5">
+    <div class="col-lg-7">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center"><h5 class="m-0 text-white"><i class="fa-solid fa-rss me-2"></i>Your RSS Feeds</h5></div>
+            <div class="card-body"><form method="POST" class="row g-2 mb-4"><input type="hidden" name="action" value="add_feed"><div class="col-md-3"><select name="category" class="form-select">{% for cat in categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}</select></div><div class="col-md-3"><input type="text" name="name" class="form-control" placeholder="Name" required></div><div class="col-md-4"><input type="url" name="url" class="form-control" placeholder="RSS URL" required></div><div class="col-md-2"><button class="btn btn-success w-100">Add</button></div></form>
+                {% for cat in categories %}
+                <div class="mb-4"><div class="d-flex justify-content-between border-bottom border-secondary mb-2"><strong class="text-danger fs-5">{{ cat }}</strong><form method="POST" onsubmit="return confirm('Clear {{ cat }}?');"><input type="hidden" name="action" value="delete_category_feeds"><input type="hidden" name="category" value="{{ cat }}"><button class="btn btn-link btn-sm text-muted p-0">Clear All</button></form></div>
+                    <div class="list-group list-group-flush">{% for feed in feeds %}{% if feed.category == cat %}<div class="list-group-item d-flex justify-content-between align-items-center"><div class="text-truncate" style="max-width: 80%;"><strong class="d-block">{{ feed.name }}</strong><small class="text-muted">{{ feed.url }}</small></div><form method="POST"><input type="hidden" name="action" value="delete_feed"><input type="hidden" name="feed_id" value="{{ feed.id }}"><button class="btn-close btn-close-white"></button></form></div>{% endif %}{% endfor %}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-primary text-white text-center"><h5 class="m-0 text-white"><i class="fa-solid fa-folder me-2"></i>Your Custom Categories</h5></div>
+            <div class="card-body"><form method="POST" class="input-group mb-4"><input type="hidden" name="action" value="add_page"><input type="text" name="page_name" class="form-control" placeholder="New Category Name" required><button class="btn btn-success">Add</button></form>
+                <ul class="list-group">{% for cat in categories %}<li class="list-group-item d-flex justify-content-between align-items-center"><span class="fs-5">{{ cat }}</span><form method="POST" onsubmit="return confirm('Delete category {{ cat }}?');" class="m-0"><input type="hidden" name="action" value="delete_page"><input type="hidden" name="page_name" value="{{ cat }}"><button class="btn btn-link text-danger p-0"><i class="fa-solid fa-trash"></i></button></form></li>{% endfor %}</ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
